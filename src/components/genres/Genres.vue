@@ -7,6 +7,9 @@
                         <div class="card mt-5">
                             <div class="card-header">
                                 <h3 class="card-title">Genres</h3>
+                                <div class="float-right">
+                                    <router-link :to="{name: 'GenreNewForm'}" class="btn btn-primary">New Genre</router-link>
+                                </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -20,7 +23,7 @@
                                     <tbody>
                                     <tr v-for="genre in genres">
                                         <td>{{genre.id}}</td>
-                                        <td> {{genre.name}}</td>
+                                        <td> <router-link :to="{ name: 'GenreEditForm', params: {id: genre.id}, query: {name: genre.name, type: 'edit'} }">{{genre.name}}</router-link></td>
                                     </tr>
                                     </tbody>
                                 </table>

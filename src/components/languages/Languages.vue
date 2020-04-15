@@ -7,6 +7,10 @@
                         <div class="card mt-5">
                             <div class="card-header">
                                 <h3 class="card-title">Languages</h3>
+                                <div class="float-right">
+                                    <router-link :to="{name: 'LanguageNewForm'}" class="btn btn-primary">New Language</router-link>
+                                </div>
+
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -20,7 +24,7 @@
                                     <tbody>
                                     <tr v-for="language in languages">
                                         <td>{{language.id}}</td>
-                                        <td> {{language.name}}</td>
+                                        <td> <router-link :to="{ name: 'LanguageEditForm', params: {id: language.id}, query: {name: language.name, type: 'edit'} }">{{language.name}}</router-link></td>
                                     </tr>
                                     </tbody>
                                 </table>

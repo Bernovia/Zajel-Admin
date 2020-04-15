@@ -6,9 +6,9 @@ import Book from '../components/books/Book'
 import Users from '../components/users/Users'
 import User from '../components/users/User'
 import Languages from '../components/languages/Languages'
-import NewLanguage from '../components/languages/New'
+import LanguageForm from '../components/languages/Form'
 import Genres from '../components/genres/Genres'
-import NewGenre from '../components/genres/New'
+import GenreForm from '../components/genres/Form'
 
 Vue.use(VueRouter)
 
@@ -45,8 +45,13 @@ Vue.use(VueRouter)
     },
     {
       path: '/languages/new',
-      name: 'NewLanguage',
-      component: NewLanguage
+      name: 'LanguageNewForm',
+      component: LanguageForm
+    },
+    {
+      path: '/languages/:id/edit',
+      name: 'LanguageEditForm',
+      component: LanguageForm
     },
     {
       path: '/genres',
@@ -55,8 +60,13 @@ Vue.use(VueRouter)
     },
     {
       path: '/genres/new',
-      name: 'NewGenre',
-      component: NewGenre
+      name: 'GenreNewForm',
+      component: GenreForm
+    },
+    {
+      path: '/genres/:id/edit',
+      name: 'GenreEditForm',
+      component: GenreForm
     }
 ]
 
