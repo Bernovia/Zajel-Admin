@@ -1,32 +1,33 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+  <div>
+    <app-header></app-header>
+    <app-sidebar></app-sidebar>
+    <router-view></router-view>
   </div>
 </template>
 
+<script>
+  import 'admin-lte/dist/js/adminlte.js'
+  import './assets/js/all'
+  // import 'vue-select/dist/vue-select.css';
+
+  import Header from './components/Header';
+  import Sidebar from './components/Sidebar';
+
+  export default {
+    components: {
+      appHeader: Header,
+      appSidebar: Sidebar
+    }
+  }
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  @import '~admin-lte/dist/css/adminlte.css';
+  @import '~admin-lte/dist/css/alt/adminlte.components.css';
+  @import '~admin-lte/dist/css/alt/adminlte.core.css';
+  @import '~admin-lte/dist/css/alt/adminlte.plugins.css';
+  @import '~admin-lte/dist/css/alt/adminlte.pages.css';
+  @import '~admin-lte/dist/css/alt/adminlte.extra-components.css';
+  @import './assets/css/all.css';
 </style>
