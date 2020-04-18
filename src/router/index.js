@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Books from '../components/books/Books'
+import NewBooks from '../components/books/NewBooks'
+import UpdateBook from '../components/books/UpdateBook'
 import Book from '../components/books/Book'
 import Users from '../components/users/Users'
 import User from '../components/users/User'
@@ -9,6 +11,7 @@ import Languages from '../components/languages/Languages'
 import LanguageForm from '../components/languages/Form'
 import Genres from '../components/genres/Genres'
 import GenreForm from '../components/genres/Form'
+import Requests from '../components/requests/Requests'
 
 Vue.use(VueRouter)
 
@@ -24,9 +27,19 @@ Vue.use(VueRouter)
       component: Books
     },
     {
+      path: '/newbooks',
+      name: 'NewBooks',
+      component: NewBooks
+    },
+    {
       path: '/books/:id',
       name: 'Book',
       component: Book
+    },
+    {
+      path: '/books/:id/edit',
+      name: 'UpdateBook',
+      component: UpdateBook
     },
     {
       path: '/users',
@@ -67,6 +80,11 @@ Vue.use(VueRouter)
       path: '/genres/:id/edit',
       name: 'GenreEditForm',
       component: GenreForm
+    },
+    {
+      path: '/requests',
+      name: 'Requests',
+      component: Requests
     }
 ]
 

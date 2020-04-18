@@ -9,7 +9,7 @@
 <script>
   import 'admin-lte/dist/js/adminlte.js'
   import './assets/js/all'
-  // import 'vue-select/dist/vue-select.css';
+  import 'vue-select/dist/vue-select.css';
 
   import Header from './components/Header';
   import Sidebar from './components/Sidebar';

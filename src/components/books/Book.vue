@@ -44,18 +44,29 @@
                             <p>Language: {{this.book.language}}</p>
                             <p>Genre: {{this.book.genre}}</p>
                             <p>Published at: {{this.book.published_at}}</p>
+                            <p>Added at: {{moment(this.book.created_at)}}</p>
                             <p>Owned by: <router-link :to="'/users/' + this.book.owner_id">{{this.book.owner_name}}</router-link></p>
                             <hr>
 
                             <div class="mt-4">
-                                <div class="btn btn-primary btn-lg btn-flat">
+                                <router-link class="btn btn-primary btn-lg btn-flat" :to="'/books/' + this.book.id + '/edit'">
                                     <i class="fas fa-edit fa-lg mr-2"></i>
                                     Update
-                                </div>
+                                </router-link>
 
-                                <div class="btn btn-success btn-lg btn-flat" v-if="!this.book.approved">
+                                <div class="btn btn-success btn-lg btn-flat" v-if="!this.book.approved" @click="approve()">
                                     <i class="fas fa-thumbs-up fa-lg mr-2"></i>
                                     Approve
+                                </div>
+
+                                <div class="btn btn-danger btn-lg btn-flat" v-if="this.book.status == 'available'" @click="hide()">
+                                    <i class="fas fa-ban fa-lg mr-2"></i>
+                                    Hide
+                                </div>
+
+                                <div class="btn btn-success btn-lg btn-flat" v-else @click="show()">
+                                    <i class="fas fa-eye fa-lg mr-2"></i>
+                                    Show
                                 </div>
                             </div>
 
@@ -94,6 +105,24 @@
         methods: {
             fetchData(){
                 this.$http.get('admin/books/' + this.$route.params.id)
+                    .then(response => {
+                        this.book = response.body
+                    })
+            },
+            approve(){
+                this.$http.put('admin/books/' + this.$route.params.id, { approved: true })
+                    .then(response => {
+                        this.book = response.body
+                    })
+            },
+            hide(){
+                this.$http.put('admin/books/' + this.$route.params.id, { status: 'unavailable' })
+                    .then(response => {
+                        this.book = response.body
+                    })
+            },
+            show(){
+                this.$http.put('admin/books/' + this.$route.params.id, { status: 'available' })
                     .then(response => {
                         this.book = response.body
                     })

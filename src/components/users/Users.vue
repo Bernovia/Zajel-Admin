@@ -30,7 +30,7 @@
                                         <td>{{user.full_name}}</td>
                                         <td>{{user.phone_number}}</td>
                                         <td><span :class="user.confirmed ? 'badge bg-success' : 'badge bg-danger'">{{user.confirmed}}</span></td>
-                                        <td>{{user.created_at}}</td>
+                                        <td>{{moment(user.created_at)}}</td>
 
                                     </tr>
                                     </tbody>

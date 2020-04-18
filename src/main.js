@@ -5,6 +5,9 @@ import App from './App.vue';
 import Vue from "vue";
 import store from './store'
 import router from './router'
+import moment from 'moment';
+Vue.prototype.moment = moment
+
 Vue.config.productionTip = false
 
 Vue.use(VueResource);

@@ -52,7 +52,7 @@
 
                                 <strong><i class="fas fa-pencil-alt mr-1"></i> Registerd at</strong>
 
-                                <p class="text-muted">{{user.created_at}}</p>
+                                <p class="text-muted">{{moment(user.created_at)}}</p>
 
                                 <hr>
 

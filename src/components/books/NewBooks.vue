@@ -74,13 +74,14 @@
             fetchData(pageNumber){
                 let requestParams = {
                     page: pageNumber,
-                    per_page: 21
+                    per_page: 21,
+                    type: 'new'
                 }
                 this.$http.get('admin/books', {params: requestParams})
-                .then(response => {
-                    this.books = response.body.books
-                    this.metadata = response.body.metadata
-                })
+                    .then(response => {
+                        this.books = response.body.books
+                        this.metadata = response.body.metadata
+                    })
             },
             paginateCallback (pageNumber) {
                 this.fetchData(pageNumber)

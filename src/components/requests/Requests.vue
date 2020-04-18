@@ -6,7 +6,7 @@
                     <div class="col-12">
                         <div class="card mt-5">
                             <div class="card-header">
-                                <h3 class="card-title">Books list</h3>
+                                <h3 class="card-title">Requests list</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -14,23 +14,29 @@
                                     <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>title</th>
-                                        <th>owner</th>
-                                        <th>approved</th>
-                                        <th>Added at</th>
-                                        <th style="width: 40px">status</th>
+                                        <th>Book</th>
+                                        <th>Borrower</th>
+                                        <th>Lender</th>
+                                        <th>Status</th>
+                                        <th>requested at</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="book in books">
-                                        <td>{{book.id}}</td>
-                                        <td><router-link :to="'books/' + book.id">
-                                            {{book.title}}
+                                    <tr v-for="bookActivity in bookActivities">
+                                        <td>{{bookActivity.id}}</td>
+                                        <td><router-link :to="'books/' + bookActivity.book.id">
+                                            {{bookActivity.book.title}}
                                         </router-link></td>
-                                        <td>{{book.owner_name}}</td>
-                                        <td><span :class="book.approved ? 'badge bg-success' : 'badge bg-danger'">{{book.approved}}</span></td>
-                                        <td>{{moment(book.created_at)}}</td>
-                                        <td><span :class="book.status == 'available' ? 'badge bg-success' : 'badge bg-danger'">{{book.status}}</span></td>
+                                        <td><router-link :to="'users/' + bookActivity.borrower.id">
+                                            {{bookActivity.borrower.name}}
+                                        </router-link></td>
+                                        <td><router-link :to="'users/' + bookActivity.lender.id">
+                                            {{bookActivity.lender.name}}
+                                        </router-link></td>
+                                        <td v-if="bookActivity.status == 'accepted'"><span :class="'badge bg-success'">{{bookActivity.status}}</span></td>
+                                        <td v-else-if="bookActivity.status == 'rejected'"><span :class="'badge bg-danger'">{{bookActivity.status}}</span></td>
+                                        <td v-else><span :class="'badge bg-primary'">{{bookActivity.status}}</span></td>
+                                        <td>{{moment(bookActivity.created_at)}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -63,7 +69,7 @@
     export default {
         data (){
             return {
-                books: [],
+                bookActivities: [],
                 metadata: {}
             }
         },
@@ -76,11 +82,11 @@
                     page: pageNumber,
                     per_page: 21
                 }
-                this.$http.get('admin/books', {params: requestParams})
-                .then(response => {
-                    this.books = response.body.books
-                    this.metadata = response.body.metadata
-                })
+                this.$http.get('admin/book_activities', {params: requestParams})
+                    .then(response => {
+                        this.bookActivities = response.body.book_activities
+                        this.metadata = response.body.metadata
+                    })
             },
             paginateCallback (pageNumber) {
                 this.fetchData(pageNumber)
