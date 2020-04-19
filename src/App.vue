@@ -1,7 +1,7 @@
 <template>
   <div>
-    <app-header></app-header>
-    <app-sidebar></app-sidebar>
+    <app-header v-if="this.$route.path !== '/login'"></app-header>
+    <app-sidebar v-if="this.$route.path !== '/login'"></app-sidebar>
     <router-view></router-view>
   </div>
 </template>

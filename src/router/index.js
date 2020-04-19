@@ -5,6 +5,7 @@ import Books from '../components/books/Books'
 import NewBooks from '../components/books/NewBooks'
 import UpdateBook from '../components/books/UpdateBook'
 import Book from '../components/books/Book'
+import SignIn from '../components/users/SignIn.vue';
 import Users from '../components/users/Users'
 import User from '../components/users/User'
 import Languages from '../components/languages/Languages'
@@ -40,6 +41,11 @@ Vue.use(VueRouter)
       path: '/books/:id/edit',
       name: 'UpdateBook',
       component: UpdateBook
+    },
+    {
+      path: '/login',
+      name: 'SignIn',
+      component: SignIn
     },
     {
       path: '/users',
