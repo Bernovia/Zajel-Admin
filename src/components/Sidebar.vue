@@ -61,6 +61,12 @@
                             <p>Languages</p>
                         </router-link>
                     </li>
+                  <li class="nav-item">
+                    <router-link to="/requests" class="nav-link">
+                      <i class="nav-icon fas fa-language"></i>
+                      <p>Requests</p>
+                    </router-link>
+                  </li>
 
                 </ul>
             </nav>
