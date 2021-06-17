@@ -62,9 +62,9 @@
                         </router-link>
                     </li>
                   <li class="nav-item">
-                    <router-link to="/requests" class="nav-link">
+                    <router-link to="/web_requests" class="nav-link">
                       <i class="nav-icon fas fa-language"></i>
-                      <p>Requests</p>
+                      <p>Web Requests</p>
                     </router-link>
                   </li>
 

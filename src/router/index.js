@@ -13,6 +13,7 @@ import LanguageForm from '../components/languages/Form'
 import Genres from '../components/genres/Genres'
 import GenreForm from '../components/genres/Form'
 import Requests from '../components/requests/Requests'
+import WebRequests from '../components/web_requests/WebRequests'
 
 Vue.use(VueRouter)
 
@@ -91,6 +92,11 @@ Vue.use(VueRouter)
       path: '/requests',
       name: 'Requests',
       component: Requests
+    },
+    {
+      path: '/web_requests',
+      name: 'WebRequests',
+      component: WebRequests
     }
 ]
 

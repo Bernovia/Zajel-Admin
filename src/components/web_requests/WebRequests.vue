@@ -6,7 +6,7 @@
           <div class="col-12">
             <div class="card mt-5">
               <div class="card-header">
-                <h3 class="card-title">Requests list</h3>
+                <h3 class="card-title">Web Requests list</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -14,29 +14,21 @@
                   <thead>
                   <tr>
                     <th style="width: 10px">#</th>
-                    <th>Book</th>
-                    <th>Borrower</th>
-                    <th>Lender</th>
-                    <th>Status</th>
-                    <th>requested at</th>
+                    <th>User Email</th>
+                    <th>Remote IP</th>
+                    <th>Controller</th>
+                    <th>Path</th>
+                    <th>Method</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <tr v-for="bookActivity in bookActivities">
-                    <td>{{bookActivity.id}}</td>
-                    <td><router-link :to="'books/' + bookActivity.book.id">
-                      {{bookActivity.book.title}}
-                    </router-link></td>
-                    <td><router-link :to="'users/' + bookActivity.borrower.id">
-                      {{bookActivity.borrower.name}}
-                    </router-link></td>
-                    <td><router-link :to="'users/' + bookActivity.lender.id">
-                      {{bookActivity.lender.name}}
-                    </router-link></td>
-                    <td v-if="bookActivity.status == 'accepted'"><span :class="'badge bg-success'">{{bookActivity.status}}</span></td>
-                    <td v-else-if="bookActivity.status == 'rejected'"><span :class="'badge bg-danger'">{{bookActivity.status}}</span></td>
-                    <td v-else><span :class="'badge bg-primary'">{{bookActivity.status}}</span></td>
-                    <td>{{moment(bookActivity.created_at)}}</td>
+                  <tr v-for="request in requests">
+                    <td>{{request.id}}</td>
+                    <td>{{request.user_email}}</td>
+                    <td>{{request.remote_ip}}</td>
+                    <td>{{request.controller_class}}</td>
+                    <td>{{request.original_path}}</td>
+                    <td>{{request.method}}</td>
                   </tr>
                   </tbody>
                 </table>
@@ -69,7 +61,7 @@
 export default {
   data (){
     return {
-      bookActivities: [],
+      requests: [],
       metadata: {}
     }
   },
@@ -82,9 +74,9 @@ export default {
         page: pageNumber,
         per_page: 21
       }
-      this.$http.get('admin/book_activities', {params: requestParams})
+      this.$http.get('admin/requests', {params: requestParams})
           .then(response => {
-            this.bookActivities = response.body.book_activities
+            this.requests = response.body.requests
             this.metadata = response.body.metadata
           })
     },
