@@ -16,9 +16,12 @@
                     <th style="width: 10px">#</th>
                     <th>User Email</th>
                     <th>Remote IP</th>
+                    <th>Country</th>
+                    <th>City</th>
                     <th>Controller</th>
                     <th>Path</th>
                     <th>Method</th>
+                    <th>Time</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -26,9 +29,12 @@
                     <td>{{request.id}}</td>
                     <td>{{request.user_email}}</td>
                     <td>{{request.remote_ip}}</td>
+                    <td>{{request.country}}</td>
+                    <td>{{request.city}}</td>
                     <td>{{request.controller_class}}</td>
                     <td>{{request.original_path}}</td>
                     <td>{{request.method}}</td>
+                    <td>{{request.created_at}}</td>
                   </tr>
                   </tbody>
                 </table>
