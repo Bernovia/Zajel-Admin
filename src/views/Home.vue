@@ -66,6 +66,16 @@
                     </div>
                     <!-- /.row -->
 
+                  <div class="row">
+                    <div class="col-lg-6 col-6">
+                      <Chart v-if="loaded" :chart-data="perDayChartData" />
+                    </div>
+
+                    <div class="col-lg-6 col-6">
+                      <Chart v-if="loaded" :chart-data="perCountryChartData" />
+                    </div>
+                  </div>
+
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
@@ -81,28 +91,69 @@
 
 <script>
 
+    import Chart from "../components/charts/Chart";
+
     export default {
-        data (){
-            return {
-                usersCount: 0,
-                booksCount: 0,
-                requestsCount: 0,
-                conversationsCount: 0
-            }
-        },
-        created() {
-            this.fetchData();
-        },
-        methods: {
-            fetchData(){
-                this.$http.get('admin/metadata')
-                    .then(response => {
-                        this.usersCount = response.body.metadata.users_count
-                        this.booksCount = response.body.metadata.books_count
-                        this.requestsCount = response.body.metadata.requests_count
-                        this.conversationsCount = response.body.metadata.conversations_count
-                    })
-            }
+      components: {Chart},
+      data (){
+          return {
+            usersCount: 0,
+            booksCount: 0,
+            requestsCount: 0,
+            conversationsCount: 0,
+            requestPerDay: null,
+            requestPerCountry: null,
+            perDayChartData: null,
+            perCountryChartData: null,
+            loaded: false
+          }
+      },
+      async mounted () {
+        this.loaded = false
+        try {
+          await this.fetchData();
+          this.loaded = true
+
+          let perDayLabels = this.requestPerDay.map(request_date => request_date['date'])
+          let perCountryLabels = this.requestPerCountry.map(request_date => request_date['country'])
+
+          this.perDayChartData = {
+            labels: perDayLabels,
+            datasets: [
+              {
+                label: 'Requests Per Day',
+                backgroundColor: '#f87979',
+                data: this.requestPerDay.map(request_date => request_date['count'])
+              }
+            ]
+          }
+
+          this.perCountryChartData = {
+            labels: perCountryLabels,
+            datasets: [
+              {
+                label: 'Requests Per Country',
+                backgroundColor: '#f87979',
+                data: this.requestPerCountry.map(request_date => request_date['count'])
+              }
+            ]
+          }
+        } catch (e) {
+          console.error(e)
         }
+      },
+      methods: {
+          async fetchData(){
+              await this.$http.get('admin/metadata')
+                  .then(response => {
+                      this.usersCount = response.body.metadata.users_count
+                      this.booksCount = response.body.metadata.books_count
+                      this.requestsCount = response.body.metadata.requests_count
+                      this.conversationsCount = response.body.metadata.conversations_count
+                      this.requestPerDay = response.body.metadata.request_per_day_count
+                      this.requestPerCountry = response.body.metadata.request_per_country_count
+                  })
+          }
+      }
     }
 </script>
