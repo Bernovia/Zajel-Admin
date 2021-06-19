@@ -1,0 +1,25 @@
+name: Deploy Zajel Admin
+
+on:
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - run: npm ci
+      - run: npm run build --if-present
+      - name: Copy folder content recursively to remote
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: /home/runner/work/Zajel-Admin/Zajel-Web/dist/
+          remote: /home/mylestone/apps/zajel-admin/dist/
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.PRIVATE_KEY }}
